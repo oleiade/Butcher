@@ -2,10 +2,18 @@ package main
 
 import (
   "fmt"
+  "flag"
   "os"
   "io"
   "bufio"
 )
+
+// /*
+// ** Command line arguments
+// */
+var input = flag.String("input", "", "Input file")
+var output = flag.String("output", "", "Output dir")
+var sample = flag.Int("sample", 10, "How many lines by file?")
 
 func check(e error) {
     if e != nil {
@@ -14,7 +22,8 @@ func check(e error) {
 }
 
 func main() {
-    file, err := os.Open("/tmp/dat")
+    flag.Parse()
+    file, err := os.Open(*input)
     check(err)
 
     reader := bufio.NewReader(file)
