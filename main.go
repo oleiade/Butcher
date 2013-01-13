@@ -3,9 +3,7 @@ package main
 import (
   "log"
   "flag"
-  "os"
   "io"
-  "bufio"
 )
 
 // /*
@@ -42,21 +40,18 @@ func check(e error) {
 func main() {
     flag.Parse()
 
-    input_file, err := os.Open(input)
-    if err != nil { log.Fatal(err) }
+    reader, input_file, _ := genReader(input)
+    writer, output_file, _ := genWriter(output)
     defer input_file.Close()
-
-    output_file, err := os.Create(output)
-    if err != nil { log.Fatal(err) }
     defer output_file.Close()
-
-    reader := bufio.NewReader(input_file)
-    writer := bufio.NewWriter(output_file)
 
     for {
         line, _, err := reader.ReadLine()
         if err == io.EOF { break }
-        writer.WriteString(string(line))
+
+        _, err = writer.WriteString(string(line) + "\n")
         if err != nil { log.Fatal(err) }
+
+        writer.Flush()
     }
 }
