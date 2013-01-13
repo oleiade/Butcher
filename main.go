@@ -40,10 +40,11 @@ func check(e error) {
 func main() {
     flag.Parse()
 
-    reader, input_file, _ := genReader(input)
-    writer, output_file, _ := genWriter(output)
+    reader, input_file, err := genReader(input)
+    writer, output_file, err := genWriter(output)
     defer input_file.Close()
     defer output_file.Close()
+    if err != nil {log.Fatal(err)}
 
     for {
         line, _, err := reader.ReadLine()

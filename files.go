@@ -15,7 +15,7 @@ func genReader(filepath string) (*bufio.Reader, *os.File, error) {
 }
 
 func genWriter(filepath string) (*bufio.Writer, *os.File, error) {
-    output_file, err := os.OpenFile(filepath, os.O_CREATE | os.O_WRONLY, os.FileMode(777))
+    output_file, err := os.OpenFile(filepath, os.O_CREATE | os.O_WRONLY, 0777)
     if err != nil { return nil, nil, err }
 
     writer := bufio.NewWriterSize(output_file, 8192)
