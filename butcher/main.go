@@ -42,6 +42,7 @@ func check(e error) {
 }
 
 func main() {
+    fmt.Println("TEST TEST TEST")
     var writer                              *bufio.Writer
     var output_file                       *os.File
     var linenum, filenum               int = 0, 1
